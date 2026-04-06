@@ -5,7 +5,8 @@ resources:
   - repositories.yaml
   - cilium-helmrelease.yaml
   - signoz-helmrelease.yaml
-  - otel-collector-helmrelease.yaml
+  - otel-cilium-helmrelease.yaml
+  - otel-cilium-rbac.yaml
 generatorOptions:
   disableNameSuffixHash: true
 configMapGenerator:
@@ -15,6 +16,6 @@ configMapGenerator:
   - name: signoz-values
     files:
       - values.yaml=helm/signoz/values.yaml
-  - name: otel-collector-values
+  - name: otel-cilium-values
     files:
       - values.yaml=helm/opentelemetry-collector/values.yaml

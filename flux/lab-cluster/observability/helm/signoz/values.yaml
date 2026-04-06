@@ -1,4 +1,3 @@
-# SigNoz: UI + query + встроенный ClickHouse и встроенный сбор телеметрии (входит в чарт).
 global:
   storageClass: ""
 

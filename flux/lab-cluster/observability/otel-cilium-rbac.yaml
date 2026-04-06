@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: otel-cilium-prom-sd
+  labels:
+    app.kubernetes.io/name: otel-cilium
+    app.kubernetes.io/component: rbac
+rules:
+  - apiGroups: [""]
+    resources: [pods, nodes, endpoints, services, namespaces]
+    verbs: [get, list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: otel-cilium-prom-sd
+  labels:
+    app.kubernetes.io/name: otel-cilium
+    app.kubernetes.io/component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: otel-cilium-prom-sd
+subjects:
+  - kind: ServiceAccount
+    name: otel-cilium-opentelemetry-collector
+    namespace: signoz
