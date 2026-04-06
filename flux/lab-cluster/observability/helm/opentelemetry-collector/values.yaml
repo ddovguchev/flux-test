@@ -1,0 +1,59 @@
+# Цепочка данных: Cilium/Hubble (метрики на relay) → этот коллектор (prometheus + otlp) → SigNoz (OTLP).
+# Приложения шлют OTLP сюда; метрики Hubble подтягиваются scrape с hubble-relay.
+mode: deployment
+replicaCount: 1
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# Полная конфигурация (без merge с дефолтом чарта): приём OTLP + scrape Hubble → экспорт в signoz-otel-collector.
+alternateConfig:
+  extensions:
+    health_check:
+      endpoint: 0.0.0.0:13133
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:4318
+    prometheus:
+      config:
+        scrape_configs:
+          - job_name: hubble-relay
+            scrape_interval: 30s
+            metrics_path: /metrics
+            static_configs:
+              - targets:
+                  - hubble-relay.kube-system.svc.cluster.local:9965
+  processors:
+    batch: {}
+    memory_limiter:
+      check_interval: 5s
+      limit_percentage: 80
+      spike_limit_percentage: 25
+  exporters:
+    otlp/signoz:
+      endpoint: signoz-otel-collector.signoz.svc.cluster.local:4317
+      tls:
+        insecure: true
+  service:
+    extensions: [health_check]
+    pipelines:
+      traces:
+        receivers: [otlp]
+        processors: [memory_limiter, batch]
+        exporters: [otlp/signoz]
+      metrics:
+        receivers: [otlp, prometheus]
+        processors: [memory_limiter, batch]
+        exporters: [otlp/signoz]
+      logs:
+        receivers: [otlp]
+        processors: [memory_limiter, batch]
+        exporters: [otlp/signoz]

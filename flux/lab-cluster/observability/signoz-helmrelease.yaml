@@ -1,0 +1,31 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: signoz
+  namespace: flux-system
+spec:
+  interval: 30m
+  timeout: 60m
+  targetNamespace: signoz
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: cilium
+      namespace: flux-system
+  chart:
+    spec:
+      chart: signoz
+      version: "0.117.1"
+      sourceRef:
+        kind: HelmRepository
+        name: signoz
+        namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: signoz-values
+      valuesKey: values.yaml

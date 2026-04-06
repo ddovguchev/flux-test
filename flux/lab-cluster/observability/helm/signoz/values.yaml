@@ -1,0 +1,8 @@
+# SigNoz: UI + query + встроенный ClickHouse и встроенный сбор телеметрии (входит в чарт).
+global:
+  storageClass: ""
+
+clickhouse:
+  installCustomStorageClass: false
+  persistence:
+    size: 20Gi
