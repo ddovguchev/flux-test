@@ -24,4 +24,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: otel-cilium-opentelemetry-collector
-    namespace: signoz
+    namespace: monitoring

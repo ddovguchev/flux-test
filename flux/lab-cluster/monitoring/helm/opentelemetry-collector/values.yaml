@@ -1,4 +1,4 @@
-# Cilium/Hubble (9962–9965) -> OTLP -> SigNoz. Тот же namespace, что у коллектора (signoz).
+# Cilium/Hubble (9962–9965) -> OTLP -> SigNoz (namespace monitoring).
 mode: deployment
 
 image:
@@ -52,8 +52,8 @@ config:
 
   exporters:
     otlp_grpc:
-      # При другом имени сервиса чарта: kubectl get svc -n signoz | grep otel
-      endpoint: signoz-otel-collector.signoz.svc.cluster.local:4317
+      # При другом имени сервиса: kubectl get svc -n monitoring | grep otel
+      endpoint: signoz-otel-collector.monitoring.svc.cluster.local:4317
       tls:
         insecure: true
 
