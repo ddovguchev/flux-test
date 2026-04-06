@@ -1,2 +1,5 @@
+.PHONY: run
+
 run:
-	vagrant up --provider=libvirt
+	cd vagrant && vagrant up --provider=libvirt
+
