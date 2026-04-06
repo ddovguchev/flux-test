@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - flux-system
   - ns.yaml
-  # SigNoz + OTel в ns monitoring. Cilium — отдельный HelmRelease в kube-system.
   - monitoring

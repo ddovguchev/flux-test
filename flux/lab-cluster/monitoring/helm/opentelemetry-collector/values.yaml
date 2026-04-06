@@ -52,8 +52,8 @@ config:
 
   exporters:
     otlp_grpc:
-      # При другом имени сервиса: kubectl get svc -n monitoring | grep otel
-      endpoint: signoz-otel-collector.monitoring.svc.cluster.local:4317
+      # Имя сервиса от Helm-релиза SigNoz: обычно <release>-signoz-otel-collector
+      endpoint: monitoring-signoz-otel-collector.monitoring.svc.cluster.local:4317
       tls:
         insecure: true
 

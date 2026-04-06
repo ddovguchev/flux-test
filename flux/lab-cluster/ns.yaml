@@ -1,4 +1,3 @@
-# Весь мониторинг (SigNoz + OpenTelemetry) в этом namespace. Cilium остаётся в kube-system.
 apiVersion: v1
 kind: Namespace
 metadata:
