@@ -4,10 +4,3 @@ metadata:
   name: signoz
   labels:
     app.kubernetes.io/name: signoz
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: observability
-  labels:
-    app.kubernetes.io/name: otel-gateway
