@@ -1,17 +1,26 @@
 {
   "layout": [
     {
-      "h": 18,
+      "h": 12,
       "i": "w01",
       "moved": false,
       "static": false,
       "w": 12,
       "x": 0,
       "y": 0
+    },
+    {
+      "h": 8,
+      "i": "w02",
+      "moved": false,
+      "static": false,
+      "w": 12,
+      "x": 0,
+      "y": 12
     }
   ],
   "panelMap": {},
-  "title": "Hubble Flows Panel",
+  "title": "Hubble Flows (stable)",
   "uploadedGrafana": false,
   "version": "v6",
   "widgets": [
@@ -22,14 +31,9 @@
       "contextLinks": {
         "linksData": []
       },
-      "customLegendColors": {
-        "DROPPED": "#E24D42",
-        "AUDIT": "#EAB839",
-        "FORWARDED": "#299C46",
-        "REDIRECTED": "#705DA0"
-      },
+      "customLegendColors": {},
       "decimalPrecision": 2,
-      "description": "Single panel similar to Hubble flows list.",
+      "description": "Stable table with labels that are usually present in hubble_flows_processed_total.",
       "fillMode": "none",
       "fillSpans": false,
       "id": "w01",
@@ -58,7 +62,7 @@
               "disabled": false,
               "expression": "A",
               "filter": {
-                "expression": "source_namespace like '%%' AND destination_namespace like '%%'"
+                "expression": ""
               },
               "functions": [],
               "groupBy": [
@@ -163,7 +167,109 @@
       "stackedBarChart": false,
       "thresholds": [],
       "timePreferance": "GLOBAL_TIME",
-      "title": "Hubble Flows (verdict + source/destination pod + ns sort)",
+      "title": "Hubble Table (edit filter for namespace)",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "FORWARDED": "#299C46",
+        "DROPPED": "#E24D42",
+        "AUDIT": "#EAB839",
+        "REDIRECTED": "#705DA0"
+      },
+      "decimalPrecision": 2,
+      "description": "Verdict colors are visible on graph series.",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w02",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "graph",
+      "query": {
+        "builder": {
+          "queryData": [
+            {
+              "aggregations": [
+                {
+                  "metricName": "hubble_flows_processed_total",
+                  "reduceTo": "sum",
+                  "spaceAggregation": "sum",
+                  "temporality": "",
+                  "timeAggregation": "rate"
+                }
+              ],
+              "dataSource": "metrics",
+              "disabled": false,
+              "expression": "A",
+              "filter": {
+                "expression": ""
+              },
+              "functions": [],
+              "groupBy": [
+                {
+                  "dataType": "string",
+                  "id": "verdict--string--tag",
+                  "isColumn": false,
+                  "isJSON": false,
+                  "key": "verdict",
+                  "type": "tag"
+                }
+              ],
+              "having": {
+                "expression": ""
+              },
+              "legend": "",
+              "limit": null,
+              "orderBy": [],
+              "queryName": "A",
+              "source": "",
+              "stepInterval": null
+            }
+          ],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "id": "q02",
+        "promql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "builder",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Hubble Verdict (green/red/orange)",
       "yAxisUnit": "none"
     }
   ],

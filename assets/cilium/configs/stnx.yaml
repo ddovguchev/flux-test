@@ -1,14 +1,24 @@
-socketLB:
-  hostNamespaceOnly: true
-
-ipam:
-  mode: kubernetes
-
 bpf:
   hostLegacyRouting: true
 
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
 dnsProxy:
   minTtl: 300
+
+encryption:
+  enabled: true
+  nodeEncryption: true
+  type: wireguard
+
+extraConfig:
+  allow-localhost: policy
+
+hostFirewall:
+  enabled: true
 
 hubble:
   export:
@@ -20,22 +30,16 @@ hubble:
   ui:
     enabled: true
 
-encryption:
-  enabled: true
-  nodeEncryption: true
-  type: wireguard
+ipam:
+  mode: kubernetes
 
-hostFirewall:
-  enabled: true
-
-policyEnforcementMode: default
-
-extraConfig:
-  allow-localhost: policy
+k8sServiceHost: localhost
+k8sServicePort: 7445
 
 kubeProxyReplacement: true
 
 policyAuditMode: false
+policyEnforcementMode: default
 
 securityContext:
   capabilities:
@@ -56,10 +60,5 @@ securityContext:
       - SYS_ADMIN
       - SYS_RESOURCE
 
-cgroup:
-  autoMount:
-    enabled: false
-  hostRoot: /sys/fs/cgroup
-
-k8sServiceHost: localhost
-k8sServicePort: 7445
+socketLB:
+  hostNamespaceOnly: true

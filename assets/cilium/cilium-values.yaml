@@ -1,38 +1,18 @@
-# Сеть + Hubble; pod CIDR как в рабочем lab (при k3s 10.42.x поменяй ipam/routing).
-kubeProxyReplacement: false
-policyEnforcementMode: default
-policyAuditMode: true
+MTU: 0
 
-routingMode: native
-ipv4NativeRoutingCIDR: "10.0.0.0/8"
 autoDirectNodeRoutes: true
-
-ipam:
-  mode: cluster-pool
-  operator:
-    clusterPoolIPv4PodCIDRList:
-      - "10.0.0.0/8"
-    clusterPoolIPv4MaskSize: 24
-
-ipv4:
-  enabled: true
-
-ipv6:
-  enabled: false
 
 bpf:
   masquerade: false
+
+debug:
+  enabled: false
 
 enableIPv4Masquerade: true
 
 encryption:
   enabled: false
   type: wireguard
-
-prometheus:
-  enabled: true
-  serviceMonitor:
-    enabled: false
 
 envoy:
   enabled: true
@@ -41,27 +21,10 @@ envoy:
     serviceMonitor:
       enabled: false
 
-operator:
-  replicas: 2
-  prometheus:
-    enabled: true
-    serviceMonitor:
-      enabled: false
-
 hubble:
   enabled: true
-  relay:
-    enabled: true
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: false
-  ui:
-    enabled: true
   metrics:
     enableOpenMetrics: true
-    serviceMonitor:
-      enabled: false
     enabled:
       - 'flow:sourceContext=pod|ip;destinationContext=pod|ip;labelsContext=source_namespace,destination_namespace,source_pod,destination_pod,traffic_direction'
       - 'drop:sourceContext=pod|ip;destinationContext=pod|ip;labelsContext=source_namespace,destination_namespace,source_pod,destination_pod,traffic_direction'
@@ -70,8 +33,47 @@ hubble:
       - 'httpV2:labelsContext=source_namespace,destination_namespace,source_pod,destination_pod,traffic_direction'
       - 'icmp:labelsContext=source_namespace,destination_namespace,source_pod,destination_pod'
       - 'port-distribution:labelsContext=source_namespace,destination_namespace,source_pod,destination_pod'
+    serviceMonitor:
+      enabled: false
+  relay:
+    enabled: true
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: false
+  ui:
+    enabled: true
 
-debug:
+ipam:
+  mode: cluster-pool
+  operator:
+    clusterPoolIPv4MaskSize: 24
+    clusterPoolIPv4PodCIDRList:
+      - "10.0.0.0/8"
+
+ipv4:
+  enabled: true
+
+ipv4NativeRoutingCIDR: "10.0.0.0/8"
+
+ipv6:
   enabled: false
 
-MTU: 0
+kubeProxyReplacement: false
+
+operator:
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: false
+  replicas: 2
+
+policyAuditMode: true
+policyEnforcementMode: default
+
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+
+routingMode: native

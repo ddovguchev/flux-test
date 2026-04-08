@@ -1,54 +1,78 @@
-  cilium upgrade \
-    --version 1.18.0 \
-    --namespace kube-system \
-    --set k8sServiceHost=tstb1.cluster.local \
-    --set k8sServicePort=6443 \
-    --set operator.replicas=3 \
-    --set ipam.mode=multi-pool \
-    --set ipam.operator.autoCreateCiliumPodIPPools.default.ipv4.cidrs='{10.201.1.0/24}' \
-    --set ipam.operator.autoCreateCiliumPodIPPools.default.ipv4.maskSize=32 \
-    --set routingMode=native \
-    --set autoDirectNodeRoutes=true \
-    --set directRoutingSkipUnreachable=true \
-    --set ipv4NativeRoutingCIDR=10.201.0.0/21 \
-    --set endpointRoutes.enabled=true \
-    --set kubeProxyReplacement=true \
-    --set socketLB.enabled=true \
-    --set socketLB.hostNamespaceOnly=true \
-    --set bpf.masquerade=true \
-    --set bpf.lbExternalClusterIP=true \
-    --set bpf.natMax=196608 \
-    --set bpf.neighMax=196608 \
-    --set bpf.policyMapMax=16384 \
-    --set bpf.ctGlobalAnyMax=131072 \
-    --set bpf.ctGlobalTCPMax=131072 \
-    --set bpf.mapDynamicSizeRatio=0.005 \
-    --set bpf.preallocateMaps=true \
-    --set bpf.ctTcpTimeoutEstablished=21600s \
-    --set bpf.clockProbe=true \
-    --set ingressController.enabled=true \
-    --set ingressController.default=true \
-    --set ingressController.loadbalancerMode=shared \
-    --set loadBalancer.enabled=true \
-    --set loadBalancer.mode=dsr \
-    --set loadBalancer.acceleration=native \
-    --set loadBalancer.algorithm=maglev \
-    --set l2podAnnouncements.enabled=true \
-    --set l2announcements.leaseDuration=30s \
-    --set l2announcements.leaseRenewDeadline=10s \
-    --set l2announcements.leaseRetryPeriod=2s \
-    --set devices='eth0' \
-    --set nodePort.enabled=true \
-    --set nodePort.directRoutingDevice=eth0 \
-    --set externalIPs.enabled=true \
-    --set bandwidthManager.enabled=true \
-    --set hubble.enabled=true \
-    --set hubble.relay.enabled=true \
-    --set hubble.ui.enabled=false \
-  --set envoy.config='{"concurrency": "4"}' \
-    --set cni.chainingMode=none \
-    --set prometheus.enabled=true \
-    --set resources.requests.cpu="1500m" \
-    --set resources.requests.memory="2Gi" \
-    --set resources.limits.cpu="3000m" \
-    --set resources.limits.memory="2Gi"
+autoDirectNodeRoutes: true
+bandwidthManager:
+    enabled: true
+bpf:
+    clockProbe: true
+    ctGlobalAnyMax: 131072
+    ctGlobalTCPMax: 131072
+    ctTcpTimeoutEstablished: 21600s
+    lbExternalClusterIP: true
+    mapDynamicSizeRatio: 0.005
+    masquerade: true
+    natMax: 196608
+    neighMax: 196608
+    policyMapMax: 16384
+    preallocateMaps: true
+cni:
+    chainingMode: none
+devices: eth0
+directRoutingSkipUnreachable: true
+endpointRoutes:
+    enabled: true
+envoy:
+    config:
+        concurrency: 4
+externalIPs:
+    enabled: true
+hubble:
+    enabled: true
+    relay:
+        enabled: true
+    ui:
+        enabled: false
+ingressController:
+    default: true
+    enabled: true
+    loadbalancerMode: shared
+ipam:
+    mode: multi-pool
+    operator:
+        autoCreateCiliumPodIPPools:
+            default:
+                ipv4:
+                    cidrs:
+                        - 10.201.1.0/24
+                    maskSize: 32
+ipv4NativeRoutingCIDR: 10.201.0.0/21
+k8sServiceHost: tstb1.cluster.local
+k8sServicePort: 6443
+kubeProxyReplacement: true
+l2announcements:
+    leaseDuration: 30s
+    leaseRenewDeadline: 10s
+    leaseRetryPeriod: 2s
+l2podAnnouncements:
+    enabled: true
+loadBalancer:
+    acceleration: native
+    algorithm: maglev
+    enabled: true
+    mode: dsr
+nodePort:
+    directRoutingDevice: eth0
+    enabled: true
+operator:
+    replicas: 3
+prometheus:
+    enabled: true
+resources:
+    limits:
+        cpu: 3000m
+        memory: 2Gi
+    requests:
+        cpu: 1500m
+        memory: 2Gi
+routingMode: native
+socketLB:
+    enabled: true
+    hostNamespaceOnly: true
