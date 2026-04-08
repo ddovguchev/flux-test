@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - repositories.yaml
-  - cilium-helmrelease.yaml
   - signoz-helmrelease.yaml
   - otel-cilium-helmrelease.yaml
   - otel-cilium-rbac.yaml

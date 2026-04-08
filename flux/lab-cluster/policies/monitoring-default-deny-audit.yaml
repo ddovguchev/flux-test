@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: monitoring-default-deny-audit
+  namespace: monitoring
+spec:
+  description: "Audit-only baseline policy. Will become default-deny when audit mode is disabled."
+  endpointSelector: {}
+  ingress: []
+  egress: []
