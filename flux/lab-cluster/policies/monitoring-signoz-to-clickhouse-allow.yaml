@@ -1,0 +1,24 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-signoz-to-clickhouse
+  namespace: monitoring
+spec:
+  description: "Allow SigNoz API to connect to ClickHouse."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: monitoring-signoz
+      k8s:app.kubernetes.io/component: signoz
+      k8s:app.kubernetes.io/name: signoz
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: monitoring-signoz
+            k8s:app.kubernetes.io/component: clickhouse
+            k8s:app.kubernetes.io/name: clickhouse
+      toPorts:
+        - ports:
+            - port: "9000"
+              protocol: TCP
+            - port: "8123"
+              protocol: TCP

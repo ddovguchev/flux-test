@@ -3,3 +3,7 @@ kind: Kustomization
 resources:
   - cluster-connectivity-safeguard.yaml
   - hubble-relay-peer-allow.yaml
+  - hubble-ui-access.yaml
+  - kube-dns-ingress-allow.yaml
+  - monitoring-otel-to-signoz-allow.yaml
+  - monitoring-signoz-to-clickhouse-allow.yaml

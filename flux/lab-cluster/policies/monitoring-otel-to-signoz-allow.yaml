@@ -1,0 +1,43 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-otel-cilium-to-signoz-otel
+  namespace: monitoring
+spec:
+  description: "Allow otel-cilium collector to export OTLP to SigNoz otel-collector."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: otel-cilium
+      k8s:app.kubernetes.io/name: opentelemetry-collector
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: monitoring-signoz
+            k8s:app.kubernetes.io/component: otel-collector
+            k8s:app.kubernetes.io/name: signoz
+      toPorts:
+        - ports:
+            - port: "4317"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-signoz-otel-ingress-from-otel-cilium
+  namespace: monitoring
+spec:
+  description: "Allow SigNoz otel-collector to receive OTLP from otel-cilium."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: monitoring-signoz
+      k8s:app.kubernetes.io/component: otel-collector
+      k8s:app.kubernetes.io/name: signoz
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: otel-cilium
+            k8s:app.kubernetes.io/name: opentelemetry-collector
+      toPorts:
+        - ports:
+            - port: "4317"
+              protocol: TCP
