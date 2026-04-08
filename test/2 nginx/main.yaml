@@ -75,7 +75,30 @@ spec:
       port: 80
       targetPort: 80
   type: ClusterIP
-    
-    
-    
-      
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: deny-ingress-to-nginx2
+spec:
+  endpointSelector:
+    matchLabels:
+      "k8s:app": nginx2
+  ingress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: deny-nginx2-to-nginx
+spec:
+  endpointSelector:
+    matchLabels:
+      "k8s:app": nginx2
+  egressDeny:
+    - toEndpoints:
+        - matchLabels:
+            "k8s:app": nginx
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP

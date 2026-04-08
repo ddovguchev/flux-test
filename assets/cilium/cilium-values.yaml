@@ -1,5 +1,6 @@
 # Сеть + Hubble; pod CIDR как в рабочем lab (при k3s 10.42.x поменяй ipam/routing).
 kubeProxyReplacement: false
+policyEnforcementMode: default
 policyAuditMode: true
 
 routingMode: native

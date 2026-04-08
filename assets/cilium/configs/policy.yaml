@@ -1,0 +1,173 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: "allow-argocd-namespace"
+spec:
+  endpointSelector:
+    matchLabels:
+      "k8s:io.kubernetes.pod.namespace": argocd
+
+  ingress:
+    # Разрешить от kube-apiserver, health checks и host (kubelet)
+    - fromEntities:
+        - kube-apiserver
+        - health
+        - host
+
+    # Allow all traffic in argocd
+    - fromEndpoints:
+        - matchLabels:
+            "k8s:io.kubernetes.pod.namespace": argocd
+
+    - fromEntities:
+        - ingress
+        - world
+      toPorts:
+        - ports:
+            - port: "8083"
+              protocol: TCP
+            - port: "8080"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP
+
+  egress:
+    # Internal traffic between services in argocd namespace
+    - toEndpoints:
+        - matchLabels:
+            "k8s:io.kubernetes.pod.namespace": argocd
+
+    - toEntities:
+        - kube-apiserver
+
+    # DNS resolve
+    - toEndpoints:
+        - matchLabels:
+            "k8s:io.kubernetes.pod.namespace": kube-system
+            "k8s:k8s-app": kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+          rules:
+            dns:
+              - matchPattern: "*"
+
+    # HTTPS/HTTP traffic
+    - toFQDNs:
+        # GitLab
+        - matchName: "gitlab.netx.dev"
+
+        # GitHub OIDC (только нужные)
+        - matchName: "github.com"
+        - matchName: "api.github.com"
+        - matchName: "raw.githubusercontent.com"
+
+        # Helm charts
+        - matchName: "helm.releases.hashicorp.com"
+
+        # Kubernetes and Prometheus docs/charts
+        - matchName: "kubernetes-sigs.github.io"
+        - matchName: "prometheus-community.github.io"
+        - matchName: "kubernetes.github.io"
+
+        # Jetstack
+        - matchName: "charts.jetstack.io"
+
+        # Strimzi
+        - matchName: "strimzi.io"
+
+        # Longhorn
+        - matchName: "charts.longhorn.io"
+
+        # Dex
+        - matchName: "charts.dexidp.io"
+        - matchName: "dex-h-1--sandbox-k8s--c01.sftntx.com"
+
+        # Argo
+        - matchName: "argo-h-1--sandbox-k8s--c01.sftntx.com"
+
+        # Container registries (только нужные)
+        - matchName: "docker.io"
+        - matchName: "registry.hub.docker.com"
+        - matchName: "auth.docker.io"
+        - matchName: "registry.k8s.io"
+        - matchName: "quay.io"
+        - matchName: "ghcr.io"
+        - matchName: "gcr.io"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "80"
+              protocol: TCP
+
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: "allow-dex-from-argocd"
+spec:
+  endpointSelector:
+    matchLabels:
+      "k8s:io.kubernetes.pod.namespace": dex
+      "k8s:app": dex
+
+  ingress:
+    - fromEntities:
+        - kube-apiserver
+        - health
+        - host
+
+    - fromEntities:
+        - ingress
+        - world
+      toPorts:
+        - ports:
+            - port: "5556"
+              protocol: TCP
+            - port: "5557"
+              protocol: TCP
+
+  egress:
+    - toEntities:
+        - kube-apiserver
+
+    # DNS for external OIDC provider
+    - toEndpoints:
+        - matchLabels:
+            "k8s:io.kubernetes.pod.namespace": kube-system
+            "k8s:k8s-app": kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+          rules:
+            dns:
+              - matchPattern: "*"
+
+    # External OIDC provider (HTTPS)
+    - toFQDNs:
+        # Gitlab OAuth
+        - matchName: "gitlab.netx.dev"
+
+        # Helm chart
+        - matchName: "charts.dexidp.io"
+
+        # Image registry
+        - matchName: "ghcr.io"
+
+        # Argo
+        - matchName: "argo-h-1--sandbox-k8s--c01.sftntx.com"
+
+        # Dex
+        - matchName: "dex-h-1--sandbox-k8s--c01.sftntx.com"
+
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
