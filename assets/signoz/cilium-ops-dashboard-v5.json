@@ -1,1 +1,454 @@
-{"layout":[{"h":6,"i":"w01","moved":false,"static":false,"w":6,"x":0,"y":0},{"h":6,"i":"w02","moved":false,"static":false,"w":6,"x":6,"y":0},{"h":6,"i":"w03","moved":false,"static":false,"w":6,"x":0,"y":6},{"h":6,"i":"w04","moved":false,"static":false,"w":6,"x":6,"y":6},{"h":6,"i":"w05","moved":false,"static":false,"w":6,"x":0,"y":12},{"h":6,"i":"w06","moved":false,"static":false,"w":6,"x":6,"y":12},{"h":6,"i":"w07","moved":false,"static":false,"w":6,"x":0,"y":18},{"h":6,"i":"w08","moved":false,"static":false,"w":6,"x":6,"y":18},{"h":6,"i":"w09","moved":false,"static":false,"w":6,"x":0,"y":24},{"h":6,"i":"w10","moved":false,"static":false,"w":6,"x":6,"y":24},{"h":6,"i":"w11","moved":false,"static":false,"w":6,"x":0,"y":30},{"h":6,"i":"w12","moved":false,"static":false,"w":6,"x":6,"y":30},{"h":6,"i":"w13","moved":false,"static":false,"w":6,"x":0,"y":36},{"h":6,"i":"w14","moved":false,"static":false,"w":6,"x":6,"y":36},{"h":6,"i":"w15","moved":false,"static":false,"w":6,"x":0,"y":42},{"h":6,"i":"w16","moved":false,"static":false,"w":6,"x":6,"y":42}],"panelMap":{},"title":"Cilium Ops Dashboard (Namespaces, Verdicts, Latency)","uploadedGrafana":false,"version":"v5","widgets":[{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w01","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"hubble_flows_processed_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"verdict--string--tag","isColumn":false,"isJSON":false,"key":"verdict","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"15ef8659-ff1d-4a03-b71d-de8caefdc6d0","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Hubble Verdicts (FORWARDED/DROPPED)","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w02","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_drop_count_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"reason--string--tag","isColumn":false,"isJSON":false,"key":"reason","type":"tag"},{"dataType":"string","id":"direction--string--tag","isColumn":false,"isJSON":false,"key":"direction","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"ff132c07-26ec-4b9e-9ea5-950d02cdcd23","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Drop Reasons (Cilium)","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w03","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_forward_count_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"41f2de30-258b-46f5-9f40-a9c99867eb15","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Forwarded Packets","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w04","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_drop_count_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"ffba59e3-df60-4b3e-b34b-33793106dfab","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Dropped Packets","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w05","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"hubble_flows_processed_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"source_namespace--string--tag","isColumn":false,"isJSON":false,"key":"source_namespace","type":"tag"},{"dataType":"string","id":"verdict--string--tag","isColumn":false,"isJSON":false,"key":"verdict","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"e20b7c9d-53eb-450e-9c6d-d0c54edd2d83","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Traffic by Source Namespace","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w06","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"hubble_flows_processed_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"destination_namespace--string--tag","isColumn":false,"isJSON":false,"key":"destination_namespace","type":"tag"},{"dataType":"string","id":"verdict--string--tag","isColumn":false,"isJSON":false,"key":"verdict","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"7d022e5f-3278-425a-bd2c-2f13f4437723","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Traffic by Destination Namespace","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w07","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"hubble_flows_processed_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"source_workload--string--tag","isColumn":false,"isJSON":false,"key":"source_workload","type":"tag"},{"dataType":"string","id":"source_namespace--string--tag","isColumn":false,"isJSON":false,"key":"source_namespace","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"a635e40a-6793-4254-a2d0-55ba999f5023","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Top Source Workloads","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w08","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"hubble_flows_processed_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"destination_workload--string--tag","isColumn":false,"isJSON":false,"key":"destination_workload","type":"tag"},{"dataType":"string","id":"destination_namespace--string--tag","isColumn":false,"isJSON":false,"key":"destination_namespace","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"889ceaf4-ae4e-450b-8bd3-b7bb2f184d36","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Top Destination Workloads","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w09","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_node_health_connectivity_status","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"sum"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"type--string--tag","isColumn":false,"isJSON":false,"key":"type","type":"tag"},{"dataType":"string","id":"status--string--tag","isColumn":false,"isJSON":false,"key":"status","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"88e2575a-01af-494b-9f2f-5ca3155b012e","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Node Health Connectivity Status","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w10","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_unreachable_nodes","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"sum"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"39406ee2-7b87-4002-a630-f14ef9275771","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Unreachable Nodes","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w11","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_unreachable_health_endpoints","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"sum"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"f69e069a-8234-40f9-9c59-8eb5b4f3701e","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Unreachable Health Endpoints","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w12","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"hubble_lost_events_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"5cd3cc7e-2b41-4572-a378-9f13f325e1e8","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Hubble Lost Events","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w13","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_api_limiter_processed_requests_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"api_call--string--tag","isColumn":false,"isJSON":false,"key":"api_call","type":"tag"},{"dataType":"string","id":"outcome--string--tag","isColumn":false,"isJSON":false,"key":"outcome","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"debe23c3-8b20-47d9-a052-48247957c829","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"API Requests Processed","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w14","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_api_limiter_requests_in_flight","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"sum"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[{"dataType":"string","id":"api_call--string--tag","isColumn":false,"isJSON":false,"key":"api_call","type":"tag"}],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"a6039342-963e-4bb2-88e8-9056b02d8495","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"API Requests In Flight","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w15","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_endpoint_regenerations_total","reduceTo":"sum","spaceAggregation":"sum","temporality":"","timeAggregation":"rate"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"0f47b991-8604-4ef3-8219-2dc7eb62d1c5","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Endpoint Regenerations","yAxisUnit":"none"},{"bucketCount":30,"bucketWidth":0,"columnUnits":{},"contextLinks":{"linksData":[]},"customLegendColors":{},"decimalPrecision":2,"description":"","fillMode":"none","fillSpans":false,"id":"w16","isLogScale":false,"legendPosition":"bottom","lineInterpolation":"spline","lineStyle":"solid","mergeAllActiveQueries":false,"nullZeroValues":"zero","opacity":"1","panelTypes":"graph","query":{"builder":{"queryData":[{"aggregations":[{"metricName":"cilium_endpoint_regeneration_time_stats_seconds","reduceTo":"avg","spaceAggregation":"avg","temporality":"","timeAggregation":"avg"}],"dataSource":"metrics","disabled":false,"expression":"A","filter":{"expression":""},"functions":[],"groupBy":[],"having":{"expression":""},"legend":"","limit":null,"orderBy":[],"queryName":"A","source":"","stepInterval":null}],"queryFormulas":[],"queryTraceOperator":[]},"clickhouse_sql":[{"disabled":false,"legend":"","name":"A","query":""}],"id":"bde4f90e-5b41-489c-a189-4302cf1c282f","promql":[{"disabled":false,"legend":"","name":"A","query":""}],"queryType":"builder","unit":""},"selectedLogFields":[],"selectedTracesFields":[],"showPoints":false,"softMax":0,"softMin":0,"spanGaps":true,"stackedBarChart":false,"thresholds":[],"timePreferance":"GLOBAL_TIME","title":"Endpoint Regeneration Duration (avg)","yAxisUnit":"none"}],"uuid":"bd8009dc-94b3-4cdf-8538-5410d3b48d6d"}
+{
+  "layout": [
+    {
+      "h": 4,
+      "i": "w01",
+      "moved": false,
+      "static": false,
+      "w": 4,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "h": 4,
+      "i": "w02",
+      "moved": false,
+      "static": false,
+      "w": 4,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "h": 4,
+      "i": "w03",
+      "moved": false,
+      "static": false,
+      "w": 4,
+      "x": 8,
+      "y": 0
+    },
+    {
+      "h": 16,
+      "i": "w04",
+      "moved": false,
+      "static": false,
+      "w": 12,
+      "x": 0,
+      "y": 4
+    },
+    {
+      "h": 4,
+      "i": "52030167-93de-413f-8cfb-61d17514b50a",
+      "moved": false,
+      "static": false,
+      "w": 4,
+      "x": 0,
+      "y": 20
+    }
+  ],
+  "panelMap": {},
+  "title": "Hubble Flows Logs Table",
+  "uploadedGrafana": false,
+  "uuid": "019d6d07-0e3a-7154-ac61-b0284af1dc43",
+  "variables": {
+    "var-cluster-001": {
+      "allSelected": false,
+      "customValue": "",
+      "description": "Flow cluster",
+      "id": "var-cluster-001",
+      "multiSelect": false,
+      "name": "cluster",
+      "order": 0,
+      "queryValue": "SELECT JSONExtractString(body, 'flow', 'source', 'cluster_name') AS cluster FROM signoz_logs.distributed_logs_v2 WHERE position(body, '\"flow\"') > 0 AND cluster != '' GROUP BY cluster ORDER BY cluster",
+      "showALLOption": true,
+      "sort": "ASC",
+      "textboxValue": "",
+      "type": "QUERY"
+    },
+    "var-ns-001": {
+      "allSelected": false,
+      "customValue": "",
+      "description": "Kubernetes namespace",
+      "id": "var-ns-001",
+      "multiSelect": true,
+      "name": "ns",
+      "order": 1,
+      "queryValue": "SELECT ns FROM (SELECT JSONExtractString(body, 'flow', 'source', 'namespace') AS ns FROM signoz_logs.distributed_logs_v2 WHERE position(body, '\"flow\"') > 0 UNION ALL SELECT JSONExtractString(body, 'flow', 'destination', 'namespace') AS ns FROM signoz_logs.distributed_logs_v2 WHERE position(body, '\"flow\"') > 0) WHERE ns != '' GROUP BY ns ORDER BY ns",
+      "showALLOption": true,
+      "sort": "ASC",
+      "textboxValue": "",
+      "type": "QUERY"
+    }
+  },
+  "version": "v5",
+  "widgets": [
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "FORWARDED": "#299C46"
+      },
+      "decimalPrecision": 0,
+      "description": "FORWARDED flows count",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w01",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "value",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'FORWARDED'"
+          }
+        ],
+        "id": "qw01",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [
+        {
+          "index": "2187b7af-ec95-41a5-bf60-88fb1c4d8921",
+          "isEditEnabled": false,
+          "keyIndex": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "Green",
+          "thresholdFormat": "Background",
+          "thresholdLabel": "",
+          "thresholdOperator": ">",
+          "thresholdTableOptions": "A",
+          "thresholdUnit": "none",
+          "thresholdValue": 0
+        }
+      ],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "FORWARDED",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "DROPPED": "#E24D42"
+      },
+      "decimalPrecision": 0,
+      "description": "DROPPED flows count",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w02",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "value",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'DROPPED'"
+          }
+        ],
+        "id": "qw02",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [
+        {
+          "index": "c9d8b72e-f4d9-499f-b750-b89af845bb4b",
+          "isEditEnabled": false,
+          "keyIndex": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "Red",
+          "thresholdFormat": "Background",
+          "thresholdLabel": "",
+          "thresholdOperator": ">",
+          "thresholdTableOptions": "A",
+          "thresholdUnit": "none",
+          "thresholdValue": 0
+        }
+      ],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "DROPPED",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "AUDIT": "#EAB839"
+      },
+      "decimalPrecision": 0,
+      "description": "AUDIT flows count",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w03",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "value",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'AUDIT'"
+          }
+        ],
+        "id": "qw03",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [
+        {
+          "index": "e0340ebe-5f9c-45ea-bec4-38421611fa64",
+          "isEditEnabled": false,
+          "keyIndex": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "Orange",
+          "thresholdFormat": "Background",
+          "thresholdLabel": "",
+          "thresholdOperator": ">",
+          "thresholdTableOptions": "A",
+          "thresholdUnit": "none",
+          "thresholdValue": 0
+        }
+      ],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "AUDIT",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {
+        "latency_ns": "ns"
+      },
+      "columnWidths": {
+        "cluster": 145,
+        "destination_ip": 145,
+        "destination_namespace": 145,
+        "destination_pod": 145,
+        "destination_port": 145,
+        "latency_ns": 145,
+        "latency_status": 145,
+        "source_ip": 145,
+        "source_namespace": 145,
+        "source_pod": 145,
+        "time": 145,
+        "traffic_direction": 145,
+        "type": 145,
+        "verdict": 145
+      },
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "AUDIT": "#EAB839",
+        "DROPPED": "#E24D42",
+        "FORWARDED": "#299C46",
+        "REDIRECTED": "#705DA0"
+      },
+      "decimalPrecision": 2,
+      "description": "Logs-backed Hubble flow table with IP, port, type, and latency.",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w04",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "table",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "WITH base AS (\n  SELECT\n    timestamp,\n    JSONExtractString(body, 'flow', 'verdict') AS verdict,\n    JSONExtractString(body, 'flow', 'source', 'cluster_name') AS cluster,\n    JSONExtractString(body, 'flow', 'source', 'namespace') AS source_namespace,\n    JSONExtractString(body, 'flow', 'destination', 'namespace') AS destination_namespace,\n    JSONExtractString(body, 'flow', 'source', 'pod_name') AS source_pod,\n    JSONExtractString(body, 'flow', 'destination', 'pod_name') AS destination_pod,\n    JSONExtractString(body, 'flow', 'traffic_direction') AS traffic_direction,\n    JSONExtractString(body, 'flow', 'IP', 'source') AS source_ip,\n    JSONExtractString(body, 'flow', 'IP', 'destination') AS destination_ip,\n    coalesce(\n      toString(JSONExtractUInt(body, 'flow', 'l4', 'TCP', 'destination_port')),\n      toString(JSONExtractUInt(body, 'flow', 'l4', 'UDP', 'destination_port')),\n      ''\n    ) AS destination_port,\n    JSONExtractString(body, 'flow', 'Type') AS type,\n    if(\n      greatest(\n        JSONExtractUInt(body, 'flow', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'l7', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'trace_context', 'latency_ns')\n      ) > toUInt64(60000000000),\n      toUInt64(0),\n      greatest(\n        JSONExtractUInt(body, 'flow', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'l7', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'trace_context', 'latency_ns')\n      )\n    ) AS raw_latency_ns,\n    toUInt8(JSONExtractBool(body, 'flow', 'is_reply')) AS is_reply,\n    toUInt64(JSONExtractUInt(body, 'flow', 'l4', 'TCP', 'source_port')) AS src_port,\n    toUInt64(JSONExtractUInt(body, 'flow', 'l4', 'TCP', 'destination_port')) AS dst_port\n  FROM signoz_logs.distributed_logs_v2\n  WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000\n    AND position(body, '\"flow\"') > 0\n    AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster)\n    AND (\n      JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns\n      OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns\n    )\n)\nSELECT\n  formatDateTime(fromUnixTimestamp64Nano(timestamp), '%H:%i:%S %d:%m:%Y', 'Europe/Minsk') AS time,\n  verdict,\n  cluster,\n  source_namespace,\n  destination_namespace,\n  source_pod,\n  destination_pod,\n  traffic_direction,\n  source_ip,\n  destination_ip,\n  destination_port,\n  type,\n  if(\n    raw_latency_ns > 0,\n    raw_latency_ns,\n    if(\n      is_reply = 1 AND src_port > 0 AND dst_port > 0,\n      toUInt64(greatest(\n        timestamp - coalesce((\n          SELECT max(b2.timestamp)\n          FROM base AS b2\n          WHERE b2.is_reply = 0\n            AND b2.source_ip = base.destination_ip\n            AND b2.destination_ip = base.source_ip\n            AND b2.src_port = base.dst_port\n            AND b2.dst_port = base.src_port\n            AND b2.timestamp <= base.timestamp\n            AND b2.timestamp >= base.timestamp - 5000000000\n        ), timestamp),\n        toInt64(0)\n      )),\n      toUInt64(0)\n    )\n  ) AS latency_ns,\n  if(\n    raw_latency_ns > 0,\n    'native',\n    if(\n      is_reply = 1 AND src_port > 0 AND dst_port > 0,\n      'derived_tcp_reply',\n      'missing'\n    )\n  ) AS latency_status\nFROM base\nORDER BY timestamp DESC\nLIMIT 500"
+          }
+        ],
+        "id": "q04",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Hubble Flows (IP + Port + Type + Latency)",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "DROPPED": "#E24D42"
+      },
+      "decimalPrecision": 0,
+      "description": "DROPPED flows count",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "52030167-93de-413f-8cfb-61d17514b50a",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "value",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'DROPPED'"
+          }
+        ],
+        "id": "qw02",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "DROPPED",
+      "yAxisUnit": "none"
+    }
+  ]
+}
