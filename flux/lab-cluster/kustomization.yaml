@@ -4,4 +4,3 @@ resources:
   - flux-system
   - ns.yaml
   - monitoring
-  - policies
