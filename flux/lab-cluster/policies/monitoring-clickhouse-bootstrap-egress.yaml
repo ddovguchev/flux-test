@@ -1,0 +1,34 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-clickhouse-bootstrap-egress
+  namespace: monitoring
+spec:
+  description: "Allow ClickHouse init/bootstrap to resolve DNS and download binaries from GitHub."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: monitoring-signoz
+      k8s:app.kubernetes.io/component: clickhouse
+      k8s:app.kubernetes.io/name: clickhouse
+  egress:
+    - toServices:
+        - k8sService:
+            serviceName: kube-dns
+            namespace: kube-system
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+    - toFQDNs:
+        - matchName: github.com
+        - matchName: raw.githubusercontent.com
+        - matchName: objects.githubusercontent.com
+        - matchName: github-releases.githubusercontent.com
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "80"
+              protocol: TCP

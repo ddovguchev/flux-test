@@ -7,3 +7,4 @@ resources:
   - kube-dns-ingress-allow.yaml
   - monitoring-otel-to-signoz-allow.yaml
   - monitoring-signoz-to-clickhouse-allow.yaml
+  - monitoring-clickhouse-bootstrap-egress.yaml
