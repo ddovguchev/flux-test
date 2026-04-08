@@ -68,7 +68,7 @@ operator:
       enabled: false
   replicas: 2
 
-policyAuditMode: true
+policyAuditMode: false
 policyEnforcementMode: default
 
 prometheus:

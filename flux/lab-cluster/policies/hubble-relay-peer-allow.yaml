@@ -1,0 +1,20 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-hubble-relay-to-cilium-peer
+  namespace: kube-system
+spec:
+  description: "Allow Hubble Relay to connect to Cilium peer API on TCP/4244."
+  endpointSelector:
+    matchLabels:
+      k8s:io.kubernetes.pod.namespace: kube-system
+      k8s:k8s-app: hubble-relay
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:k8s-app: cilium
+      toPorts:
+        - ports:
+            - port: "4244"
+              protocol: TCP
