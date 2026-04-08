@@ -1,28 +1,77 @@
 {
   "layout": [
     {
-      "h": 12,
+      "h": 4,
       "i": "w01",
       "moved": false,
       "static": false,
-      "w": 12,
+      "w": 4,
       "x": 0,
       "y": 0
     },
     {
-      "h": 8,
+      "h": 4,
       "i": "w02",
+      "moved": false,
+      "static": false,
+      "w": 4,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "h": 4,
+      "i": "w03",
+      "moved": false,
+      "static": false,
+      "w": 4,
+      "x": 8,
+      "y": 0
+    },
+    {
+      "h": 16,
+      "i": "w04",
       "moved": false,
       "static": false,
       "w": 12,
       "x": 0,
-      "y": 12
+      "y": 4
     }
   ],
   "panelMap": {},
-  "title": "Hubble Flows (stable)",
+  "title": "Hubble Flows Logs Table",
   "uploadedGrafana": false,
-  "version": "v6",
+  "uuid": "019d6ca2-e9f9-7d64-b366-d026c82d23e1",
+  "version": "v14",
+  "variables": {
+    "var-cluster-001": {
+      "allSelected": false,
+      "customValue": "",
+      "description": "Flow cluster",
+      "id": "var-cluster-001",
+      "multiSelect": false,
+      "name": "cluster",
+      "order": 0,
+      "queryValue": "SELECT JSONExtractString(body, 'flow', 'source', 'cluster_name') AS cluster FROM signoz_logs.distributed_logs_v2 WHERE position(body, '\"flow\"') > 0 AND cluster != '' GROUP BY cluster ORDER BY cluster",
+      "showALLOption": true,
+      "sort": "ASC",
+      "textboxValue": "",
+      "type": "QUERY"
+    },
+    "var-ns-001": {
+      "allSelected": true,
+      "customValue": "",
+      "description": "Kubernetes namespace",
+      "id": "var-ns-001",
+      "multiSelect": true,
+      "name": "ns",
+      "order": 1,
+      "queryValue": "SELECT ns FROM (SELECT JSONExtractString(body, 'flow', 'source', 'namespace') AS ns FROM signoz_logs.distributed_logs_v2 WHERE position(body, '\"flow\"') > 0 UNION ALL SELECT JSONExtractString(body, 'flow', 'destination', 'namespace') AS ns FROM signoz_logs.distributed_logs_v2 WHERE position(body, '\"flow\"') > 0) WHERE ns != '' GROUP BY ns ORDER BY ns",
+      "showALLOption": true,
+      "sort": "ASC",
+      "textboxValue": "",
+      "type": "QUERY"
+    }
+  },
   "widgets": [
     {
       "bucketCount": 30,
@@ -31,9 +80,11 @@
       "contextLinks": {
         "linksData": []
       },
-      "customLegendColors": {},
-      "decimalPrecision": 2,
-      "description": "Stable table with labels that are usually present in hubble_flows_processed_total.",
+      "customLegendColors": {
+        "FORWARDED": "#299C46"
+      },
+      "decimalPrecision": 0,
+      "description": "FORWARDED flows count",
       "fillMode": "none",
       "fillSpans": false,
       "id": "w01",
@@ -44,97 +95,10 @@
       "mergeAllActiveQueries": false,
       "nullZeroValues": "zero",
       "opacity": "1",
-      "panelTypes": "table",
+      "panelTypes": "value",
       "query": {
         "builder": {
-          "queryData": [
-            {
-              "aggregations": [
-                {
-                  "metricName": "hubble_flows_processed_total",
-                  "reduceTo": "sum",
-                  "spaceAggregation": "sum",
-                  "temporality": "",
-                  "timeAggregation": "rate"
-                }
-              ],
-              "dataSource": "metrics",
-              "disabled": false,
-              "expression": "A",
-              "filter": {
-                "expression": ""
-              },
-              "functions": [],
-              "groupBy": [
-                {
-                  "dataType": "string",
-                  "id": "verdict--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "verdict",
-                  "type": "tag"
-                },
-                {
-                  "dataType": "string",
-                  "id": "source_namespace--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "source_namespace",
-                  "type": "tag"
-                },
-                {
-                  "dataType": "string",
-                  "id": "destination_namespace--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "destination_namespace",
-                  "type": "tag"
-                },
-                {
-                  "dataType": "string",
-                  "id": "source_pod--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "source_pod",
-                  "type": "tag"
-                },
-                {
-                  "dataType": "string",
-                  "id": "destination_pod--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "destination_pod",
-                  "type": "tag"
-                },
-                {
-                  "dataType": "string",
-                  "id": "traffic_direction--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "traffic_direction",
-                  "type": "tag"
-                }
-              ],
-              "having": {
-                "expression": ""
-              },
-              "legend": "",
-              "limit": null,
-              "orderBy": [
-                {
-                  "columnName": "source_namespace",
-                  "order": "asc"
-                },
-                {
-                  "columnName": "destination_namespace",
-                  "order": "asc"
-                }
-              ],
-              "queryName": "A",
-              "source": "",
-              "stepInterval": null
-            }
-          ],
+          "queryData": [],
           "queryFormulas": [],
           "queryTraceOperator": []
         },
@@ -143,19 +107,19 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": ""
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'FORWARDED'"
           }
         ],
-        "id": "q01",
+        "id": "qw01",
         "promql": [
           {
-            "disabled": false,
+            "disabled": true,
             "legend": "",
             "name": "A",
             "query": ""
           }
         ],
-        "queryType": "builder",
+        "queryType": "clickhouse_sql",
         "unit": ""
       },
       "selectedLogFields": [],
@@ -167,7 +131,7 @@
       "stackedBarChart": false,
       "thresholds": [],
       "timePreferance": "GLOBAL_TIME",
-      "title": "Hubble Table (edit filter for namespace)",
+      "title": "FORWARDED",
       "yAxisUnit": "none"
     },
     {
@@ -178,13 +142,10 @@
         "linksData": []
       },
       "customLegendColors": {
-        "FORWARDED": "#299C46",
-        "DROPPED": "#E24D42",
-        "AUDIT": "#EAB839",
-        "REDIRECTED": "#705DA0"
+        "DROPPED": "#E24D42"
       },
-      "decimalPrecision": 2,
-      "description": "Verdict colors are visible on graph series.",
+      "decimalPrecision": 0,
+      "description": "DROPPED flows count",
       "fillMode": "none",
       "fillSpans": false,
       "id": "w02",
@@ -195,48 +156,10 @@
       "mergeAllActiveQueries": false,
       "nullZeroValues": "zero",
       "opacity": "1",
-      "panelTypes": "graph",
+      "panelTypes": "value",
       "query": {
         "builder": {
-          "queryData": [
-            {
-              "aggregations": [
-                {
-                  "metricName": "hubble_flows_processed_total",
-                  "reduceTo": "sum",
-                  "spaceAggregation": "sum",
-                  "temporality": "",
-                  "timeAggregation": "rate"
-                }
-              ],
-              "dataSource": "metrics",
-              "disabled": false,
-              "expression": "A",
-              "filter": {
-                "expression": ""
-              },
-              "functions": [],
-              "groupBy": [
-                {
-                  "dataType": "string",
-                  "id": "verdict--string--tag",
-                  "isColumn": false,
-                  "isJSON": false,
-                  "key": "verdict",
-                  "type": "tag"
-                }
-              ],
-              "having": {
-                "expression": ""
-              },
-              "legend": "",
-              "limit": null,
-              "orderBy": [],
-              "queryName": "A",
-              "source": "",
-              "stepInterval": null
-            }
-          ],
+          "queryData": [],
           "queryFormulas": [],
           "queryTraceOperator": []
         },
@@ -245,19 +168,19 @@
             "disabled": false,
             "legend": "",
             "name": "A",
-            "query": ""
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'DROPPED'"
           }
         ],
-        "id": "q02",
+        "id": "qw02",
         "promql": [
           {
-            "disabled": false,
+            "disabled": true,
             "legend": "",
             "name": "A",
             "query": ""
           }
         ],
-        "queryType": "builder",
+        "queryType": "clickhouse_sql",
         "unit": ""
       },
       "selectedLogFields": [],
@@ -269,9 +192,135 @@
       "stackedBarChart": false,
       "thresholds": [],
       "timePreferance": "GLOBAL_TIME",
-      "title": "Hubble Verdict (green/red/orange)",
+      "title": "DROPPED",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {},
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "AUDIT": "#EAB839"
+      },
+      "decimalPrecision": 0,
+      "description": "AUDIT flows count",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w03",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "value",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "SELECT count() AS value FROM signoz_logs.distributed_logs_v2 WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000 AND position(body, '\"flow\"') > 0 AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster) AND (JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns) AND JSONExtractString(body, 'flow', 'verdict') = 'AUDIT'"
+          }
+        ],
+        "id": "qw03",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "AUDIT",
+      "yAxisUnit": "none"
+    },
+    {
+      "bucketCount": 30,
+      "bucketWidth": 0,
+      "columnUnits": {
+        "latency_ns": "ns"
+      },
+      "contextLinks": {
+        "linksData": []
+      },
+      "customLegendColors": {
+        "AUDIT": "#EAB839",
+        "DROPPED": "#E24D42",
+        "FORWARDED": "#299C46",
+        "REDIRECTED": "#705DA0"
+      },
+      "decimalPrecision": 2,
+      "description": "Logs-backed Hubble flow table with IP, port, type, and latency.",
+      "fillMode": "none",
+      "fillSpans": false,
+      "id": "w04",
+      "isLogScale": false,
+      "legendPosition": "bottom",
+      "lineInterpolation": "spline",
+      "lineStyle": "solid",
+      "mergeAllActiveQueries": false,
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "panelTypes": "table",
+      "query": {
+        "builder": {
+          "queryData": [],
+          "queryFormulas": [],
+          "queryTraceOperator": []
+        },
+        "clickhouse_sql": [
+          {
+            "disabled": false,
+            "legend": "",
+            "name": "A",
+            "query": "WITH base AS (\n  SELECT\n    timestamp,\n    JSONExtractString(body, 'flow', 'verdict') AS verdict,\n    JSONExtractString(body, 'flow', 'source', 'cluster_name') AS cluster,\n    JSONExtractString(body, 'flow', 'source', 'namespace') AS source_namespace,\n    JSONExtractString(body, 'flow', 'destination', 'namespace') AS destination_namespace,\n    JSONExtractString(body, 'flow', 'source', 'pod_name') AS source_pod,\n    JSONExtractString(body, 'flow', 'destination', 'pod_name') AS destination_pod,\n    JSONExtractString(body, 'flow', 'traffic_direction') AS traffic_direction,\n    JSONExtractString(body, 'flow', 'IP', 'source') AS source_ip,\n    JSONExtractString(body, 'flow', 'IP', 'destination') AS destination_ip,\n    coalesce(\n      toString(JSONExtractUInt(body, 'flow', 'l4', 'TCP', 'destination_port')),\n      toString(JSONExtractUInt(body, 'flow', 'l4', 'UDP', 'destination_port')),\n      ''\n    ) AS destination_port,\n    JSONExtractString(body, 'flow', 'Type') AS type,\n    if(\n      greatest(\n        JSONExtractUInt(body, 'flow', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'l7', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'trace_context', 'latency_ns')\n      ) > toUInt64(60000000000),\n      toUInt64(0),\n      greatest(\n        JSONExtractUInt(body, 'flow', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'l7', 'latency_ns'),\n        JSONExtractUInt(body, 'flow', 'trace_context', 'latency_ns')\n      )\n    ) AS raw_latency_ns,\n    toUInt8(JSONExtractBool(body, 'flow', 'is_reply')) AS is_reply,\n    toUInt64(JSONExtractUInt(body, 'flow', 'l4', 'TCP', 'source_port')) AS src_port,\n    toUInt64(JSONExtractUInt(body, 'flow', 'l4', 'TCP', 'destination_port')) AS dst_port\n  FROM signoz_logs.distributed_logs_v2\n  WHERE timestamp > toUnixTimestamp64Nano(now64()) - 86400000000000\n    AND position(body, '\"flow\"') > 0\n    AND (JSONExtractString(body, 'flow', 'source', 'cluster_name') IN $cluster)\n    AND (\n      JSONExtractString(body, 'flow', 'source', 'namespace') IN $ns\n      OR JSONExtractString(body, 'flow', 'destination', 'namespace') IN $ns\n    )\n)\nSELECT\n  formatDateTime(fromUnixTimestamp64Nano(timestamp), '%H:%i:%S %d:%m:%Y', 'Europe/Minsk') AS time,\n  verdict,\n  cluster,\n  source_namespace,\n  destination_namespace,\n  source_pod,\n  destination_pod,\n  traffic_direction,\n  source_ip,\n  destination_ip,\n  destination_port,\n  type,\n  if(\n    raw_latency_ns > 0,\n    raw_latency_ns,\n    if(\n      is_reply = 1 AND src_port > 0 AND dst_port > 0,\n      toUInt64(greatest(\n        timestamp - coalesce((\n          SELECT max(b2.timestamp)\n          FROM base AS b2\n          WHERE b2.is_reply = 0\n            AND b2.source_ip = base.destination_ip\n            AND b2.destination_ip = base.source_ip\n            AND b2.src_port = base.dst_port\n            AND b2.dst_port = base.src_port\n            AND b2.timestamp <= base.timestamp\n            AND b2.timestamp >= base.timestamp - 5000000000\n        ), timestamp),\n        toInt64(0)\n      )),\n      toUInt64(0)\n    )\n  ) AS latency_ns,\n  if(\n    raw_latency_ns > 0,\n    'native',\n    if(\n      is_reply = 1 AND src_port > 0 AND dst_port > 0,\n      'derived_tcp_reply',\n      'missing'\n    )\n  ) AS latency_status\nFROM base\nORDER BY timestamp DESC\nLIMIT 500"
+          }
+        ],
+        "id": "q04",
+        "promql": [
+          {
+            "disabled": true,
+            "legend": "",
+            "name": "A",
+            "query": ""
+          }
+        ],
+        "queryType": "clickhouse_sql",
+        "unit": ""
+      },
+      "selectedLogFields": [],
+      "selectedTracesFields": [],
+      "showPoints": false,
+      "softMax": 0,
+      "softMin": 0,
+      "spanGaps": true,
+      "stackedBarChart": false,
+      "thresholds": [],
+      "timePreferance": "GLOBAL_TIME",
+      "title": "Hubble Flows (IP + Port + Type + Latency)",
       "yAxisUnit": "none"
     }
-  ],
-  "uuid": "a74b7cf7-ffca-45ba-8d09-572ceee2280e"
+  ]
 }
