@@ -3,19 +3,32 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: cluster-connectivity-safeguard
 spec:
-  description: "Safety-net policy to keep node-to-node and internet connectivity available."
+  description: "Default deny pod-to-pod traffic cluster-wide, allow only system and explicitly permitted flows."
   endpointSelector: {}
   ingress:
     - fromEntities:
         - host
         - remote-node
-        - cluster
         - kube-apiserver
         - health
   egress:
     - toEntities:
         - host
         - remote-node
-        - cluster
         - kube-apiserver
+        - health
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+          rules:
+            dns:
+              - matchPattern: "*"
+    - toEntities:
         - world
