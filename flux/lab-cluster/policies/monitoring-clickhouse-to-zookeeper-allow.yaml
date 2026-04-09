@@ -1,0 +1,45 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-clickhouse-to-zookeeper
+  namespace: monitoring
+spec:
+  description: "Allow ClickHouse to connect to ZooKeeper."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: monitoring-signoz
+      k8s:app.kubernetes.io/component: clickhouse
+      k8s:app.kubernetes.io/name: clickhouse
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: monitoring-signoz
+            k8s:app.kubernetes.io/component: zookeeper
+            k8s:app.kubernetes.io/name: signoz
+      toPorts:
+        - ports:
+            - port: "2181"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-zookeeper-ingress-from-clickhouse
+  namespace: monitoring
+spec:
+  description: "Allow ZooKeeper to accept ClickHouse connections."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: monitoring-signoz
+      k8s:app.kubernetes.io/component: zookeeper
+      k8s:app.kubernetes.io/name: signoz
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: monitoring-signoz
+            k8s:app.kubernetes.io/component: clickhouse
+            k8s:app.kubernetes.io/name: clickhouse
+      toPorts:
+        - ports:
+            - port: "2181"
+              protocol: TCP

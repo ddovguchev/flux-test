@@ -2,9 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - cluster-connectivity-safeguard.yaml
+  - kube-dns-cluster-ingress-allow.yaml
   - hubble-relay-peer-allow.yaml
   - hubble-ui-access.yaml
   - kube-dns-ingress-allow.yaml
   - monitoring-otel-to-signoz-allow.yaml
   - monitoring-signoz-to-clickhouse-allow.yaml
   - monitoring-clickhouse-bootstrap-egress.yaml
+  - monitoring-clickhouse-to-zookeeper-allow.yaml

@@ -21,11 +21,27 @@ spec:
               protocol: UDP
             - port: "53"
               protocol: TCP
+    - toCIDRSet:
+        - cidr: 10.43.0.10/32
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
     - toFQDNs:
         - matchName: github.com
         - matchName: raw.githubusercontent.com
         - matchName: objects.githubusercontent.com
         - matchName: github-releases.githubusercontent.com
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "80"
+              protocol: TCP
+    - toEntities:
+        - world
       toPorts:
         - ports:
             - port: "443"
