@@ -9,5 +9,6 @@ resources:
   - monitoring-otel-to-signoz-allow.yaml
   - monitoring-signoz-to-clickhouse-allow.yaml
   - monitoring-signoz-otel-to-clickhouse-allow.yaml
+  - monitoring-signoz-otel-to-signoz-allow.yaml
   - monitoring-clickhouse-bootstrap-egress.yaml
   - monitoring-clickhouse-to-zookeeper-allow.yaml
