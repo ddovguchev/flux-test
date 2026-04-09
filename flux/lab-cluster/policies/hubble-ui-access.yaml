@@ -58,6 +58,12 @@ spec:
               protocol: TCP
             - port: "4245"
               protocol: TCP
+    - fromCIDRSet:
+        - cidr: 10.42.0.0/16
+      toPorts:
+        - ports:
+            - port: "4245"
+              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
