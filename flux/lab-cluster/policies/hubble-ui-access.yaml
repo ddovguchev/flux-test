@@ -26,6 +26,8 @@ spec:
         - ports:
             - port: "80"
               protocol: TCP
+            - port: "4222"
+              protocol: TCP
             - port: "443"
               protocol: TCP
             - port: "4245"
@@ -37,12 +39,26 @@ metadata:
   name: allow-hubble-relay-from-ui
   namespace: kube-system
 spec:
-  description: "Allow Hubble UI to call Hubble Relay."
+  description: "Allow Hubble UI and kube-system control traffic to reach Hubble Relay."
   endpointSelector:
     matchLabels:
       k8s:io.kubernetes.pod.namespace: kube-system
       k8s:k8s-app: hubble-relay
   ingress:
+    - fromEntities:
+        - host
+        - remote-node
+        - cluster
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "4222"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP
+            - port: "4245"
+              protocol: TCP
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
@@ -50,9 +66,13 @@ spec:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
             k8s:app: hubble-observer
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
       toPorts:
         - ports:
             - port: "80"
+              protocol: TCP
+            - port: "4222"
               protocol: TCP
             - port: "443"
               protocol: TCP
