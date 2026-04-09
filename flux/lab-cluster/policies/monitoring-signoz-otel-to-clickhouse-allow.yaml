@@ -1,0 +1,24 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-signoz-otel-to-clickhouse
+  namespace: monitoring
+spec:
+  description: "Allow SigNoz OTEL collector to query/write ClickHouse."
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/instance: monitoring-signoz
+      k8s:app.kubernetes.io/component: otel-collector
+      k8s:app.kubernetes.io/name: signoz
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: monitoring-signoz
+            k8s:app.kubernetes.io/component: clickhouse
+            k8s:app.kubernetes.io/name: clickhouse
+      toPorts:
+        - ports:
+            - port: "9000"
+              protocol: TCP
+            - port: "8123"
+              protocol: TCP

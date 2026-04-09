@@ -15,7 +15,7 @@ spec:
         - matchLabels:
             k8s:app.kubernetes.io/instance: monitoring-signoz
             k8s:app.kubernetes.io/component: zookeeper
-            k8s:app.kubernetes.io/name: signoz
+            k8s:app.kubernetes.io/name: zookeeper
       toPorts:
         - ports:
             - port: "2181"
@@ -32,7 +32,7 @@ spec:
     matchLabels:
       k8s:app.kubernetes.io/instance: monitoring-signoz
       k8s:app.kubernetes.io/component: zookeeper
-      k8s:app.kubernetes.io/name: signoz
+      k8s:app.kubernetes.io/name: zookeeper
   ingress:
     - fromEndpoints:
         - matchLabels:
